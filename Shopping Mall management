@@ -1,0 +1,130 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<fstream.h>
+#include"border.h"
+class start
+{
+	private:
+		char susern[6],spass[6],empc[3],epass[6];
+		char ech,inc;
+	public:
+	void fpage()
+	{
+		// Front Page
+		border();
+		gotoxy(38,1);
+		cout<<"WELCOME";
+		textcolor(4);
+		gotoxy(24,12);
+		cprintf("SHOPING MALL STOCK MANAGEMENT SYSTEM");
+		gotoxy(45,23);
+		textcolor(6+BLINK);
+		cprintf("-by Akshat Saraswat & Parv Gupta");
+		getch();
+		textcolor(15);
+	}
+	void sign()
+	{
+		textcolor(6);
+		clrscr();
+		border();
+		gotoxy(38,5);
+		textcolor(9);
+		cprintf("SIGN UP");
+		gotoxy(3,10);
+		cout<<"Hello!...";
+		gotoxy(3,12);
+		textcolor(15);
+		/*********************Superviser Set Up********************/
+		cprintf("Please Enter Superviser's User Name(Not More Then 6 Characters) : ");
+		gets(susern);
+		ofstream file("sup.dat",ios::binary|ios::app);
+		file.write((char *)&susern,sizeof(susern));
+		file.close();
+		gotoxy(3,13);
+		textcolor(15);
+		cprintf("Please Enter Superviser's Password(Not More Then 6 Characters) : ");
+		gets(spass);
+		file.open("sup.dat",ios::binary|ios::app);
+		file.write((char *)&spass,sizeof(spass));
+		file.close();
+		gotoxy(3,15);
+		textcolor(15+BLINK);
+		cprintf("Press Enter To Proceed...");
+		getch();
+		textcolor(15);
+		/*********************Emplyee Set Up********************/
+		do
+		{
+			clrscr();
+			border();
+			gotoxy(33,5);
+			textcolor(9);
+			cprintf("EMPLOYEE SET UP");
+			gotoxy(3,12);
+			textcolor(15);
+			cprintf("Please Enter Employee Code (Not More Then 3 Characters) : ");
+			gets(empc);
+			file.open("empi.dat",ios::binary|ios::app);
+			file.write((char *)&empc,sizeof(empc));
+			file.close();
+			gotoxy(3,13);
+			textcolor(15);
+			cprintf("Please Enter Employee Password(Not More Then 6 Characters) : ");
+			gets(epass);
+			file.open("empi.dat",ios::binary|ios::app);
+			file.write((char *)&epass,sizeof(epass));
+			file.close();
+			textcolor(6);
+			gotoxy(24,20);
+			cprintf("Do You Want To Add More Employee (Y/N)");
+			cin>>ech;
+		}while(ech=='y'||ech=='Y');
+		login();
+	}
+	void choice()
+	{
+			//Entry Page
+			c:
+			clrscr();
+			border();
+			gotoxy(38,10);
+			textcolor(6);
+			cprintf("Hello!...");
+			gotoxy(30,13);
+			textcolor(15);
+			cprintf("Are You A New User? (Y/N) :");
+			cin>>inc;
+			if(inc=='y'||inc=='Y')
+			{
+				sign();
+			}
+			else if(inc=='n'||inc=='N')
+			{
+				login();
+			}
+			else
+			{
+				goto c;
+			}
+	}
+	void login()
+	{
+		//login page
+		border();
+		gotoxy(38,5);
+		textcolor(9);
+		cprintf("LOGIN");
+		getch();
+	}
+};
+ void main()
+{
+	start s;
+	clrscr();
+	//s.fpage();
+
+	//s.choice();
+	s.login();
+}
